@@ -1,6 +1,6 @@
 import {react, useState} from 'react';
 import axios from 'axios';
-import styles from '../components/Blog/Blog.module.css';
+import styles from '../components/AddBlog/AddBlog.module.css';
 import {useNavigate} from 'react-router-dom';
 
 const AddBlog = () => {
@@ -19,7 +19,7 @@ const AddBlog = () => {
             content: content
         }
 
-        const res = await axios.post('http://localhost:3000/blog',body);
+        const res = await axios.post('http://localhost:4000/blog',body);
         console.log(res);
 
         setTitle('');
@@ -35,11 +35,11 @@ const AddBlog = () => {
     }
 
     const imgUrlChangeHandler = (event) => {
-        setTitle(event.target.value);
+        setUrl(event.target.value);
     }
 
     const contentChangeHandler = (event) => {
-        setTitle(event.target.value);
+        setContent(event.target.value);
     }
 
 return (

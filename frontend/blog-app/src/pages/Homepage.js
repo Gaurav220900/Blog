@@ -8,7 +8,7 @@ const Homepage = () => {
     useEffect(() => {
         async function getBlogList() {
             try{
-                const res = await axios.get('http://localhost:3000/blogs');
+                const res = await axios.get('http://localhost:4000/blogs');
                 if(res.status !== 200)
                     throw new Error('Something went wrong');
                 setBlogs(() => res.data);

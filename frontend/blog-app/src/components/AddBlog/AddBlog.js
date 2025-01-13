@@ -1,6 +1,7 @@
 import react, { useState } from 'react';
-import styles from './Blog.module.css';
+import styles from './AddBlog.module.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AddBlogForm = () => {
 
@@ -9,35 +10,39 @@ const AddBlogForm = () => {
         const [title,setTitle] = useState('');
         const [url,setUrl] = useState('');
         const [content,setContent] = useState('');
+        const navigate = useNavigate();
 
         async function formDataHandler(event) {
             event.preventDefault();
             const body = {
                 title: title,
                 url: url,
-                content: content
-            }
+                content: content,
+            };
+            console.log(body);
 
-            const res = await axios.post('http://localhost:3000/blog',body);
+            const res = await axios.post('http://localhost:4000/blog',body);
             console.log(res);
 
             setTitle('');
             setUrl('');
             setContent('');
 
-        }
+            navigate("/homepage");
+
+        };
 
         const titleChangeHandler = (event) => {
             setTitle(event.target.value);
-        }
+        };
 
         const imgUrlChangeHandler = (event) => {
             setTitle(event.target.value);
-        }
+        };
 
         const contentChangeHandler = (event) => {
             setTitle(event.target.value);
-        }
+        };
 
     return (
         <form onSubmit={formDataHandler} className={styles.form}>
