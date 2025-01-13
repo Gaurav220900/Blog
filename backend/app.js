@@ -8,9 +8,7 @@ app.get('/', (req, res) => {
 });
 
 mongoose
-  .connect("mongodb://localhost:27017/admin/blog-app",{
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+  .connect("mongodb://localhost:27017/blog-app",{
   }).then(() => {
     console.log("DB Connected");
   })
