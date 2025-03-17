@@ -22,12 +22,12 @@ router.post('/blog',async(req,res) => {
 router.get('/blogs',async(req,res) => {
     try{
         const blogs = await blogModel.find({});
-        res.status(200).json({
+        return res.status(200).json({
             message: "blogs received successfully",
             blogs: blogs
         })
     }catch(err){
-        res.status(500).json({
+        return res.status(500).json({
         message : "error getting blogs",
         error : err.message
         })

@@ -6,15 +6,18 @@ import Homepage from './pages/Homepage';
 import MyBlogs from './pages/MyBlogs';
 import { Fragment } from 'react';
 function App() {
-  return (<Fragment>
-        <Layout />
-        <Routes>
-          <Route path="/homepage" element={<Homepage />} />
-          <Route path='/addBlog' element= {<AddBlog />} />
-          <Route path='/myBlogs' element = {<MyBlogs />} />
+  return (
+    <div>
+      <Layout />
+      <Routes>
+        {/* Wrap all routes inside Layout */}
+        <Route>
+          <Route path='/homepage' element={<Homepage />} />
+          <Route path="addBlog" element={<AddBlog />} />
+          <Route path="myBlogs" element={<MyBlogs />} />
+        </Route>
       </Routes>
-      </Fragment>
-    
+    </div>
   );
 }
 

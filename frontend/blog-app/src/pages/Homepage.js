@@ -1,17 +1,18 @@
 import React, {Fragment, useEffect, useState} from "react";
 import axios from "axios";
 import BlogList from '../components/BlogList/BlogList';
+import api from '../api';
 
 const Homepage = () => {
     const [blogs,setBlogs] = useState([]);
 
     useEffect(() => {
-        async function getBlogList() {
+        const getBlogList = async() => {
             try{
-                const res = await axios.get('http://localhost:4000/blogs');
-                if(res.status !== 200)
-                    throw new Error('Something went wrong');
-                setBlogs(() => res.data);
+                const res = await api.get("/blogs");
+                //const data = await res.json();
+                console.log(res);
+                setBlogs(res.data.blogs);
             }catch(err){
                 console.error(err);
             }

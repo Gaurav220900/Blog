@@ -2,13 +2,15 @@ import styles from './Blog.module.css';
 
 const blog = ({id,title,url,content}) => {
     return (
-        <li className='styles.blog'>
-            <div>
-                <img src={url} alt={title} />
+        <div className={styles.card}>
+        <div >
+            <li >
+                <img src={url} alt={title} className={styles.img}/>
                 <h2>{title}</h2>
                 <p>{content}</p>
-            </div>
-        </li>
+            </li>
+        </div>
+        </div>
     )
 }
 

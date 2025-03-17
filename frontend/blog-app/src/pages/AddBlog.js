@@ -2,6 +2,7 @@ import {react, useState} from 'react';
 import axios from 'axios';
 import styles from '../components/AddBlog/AddBlog.module.css';
 import {useNavigate} from 'react-router-dom';
+import api from '../api';
 
 const AddBlog = () => {
 
@@ -19,7 +20,7 @@ const AddBlog = () => {
             content: content
         }
 
-        const res = await axios.post('http://localhost:4000/blog',body);
+        const res = await api.post('/blog',body);
         console.log(res);
 
         setTitle('');

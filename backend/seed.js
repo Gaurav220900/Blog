@@ -16,7 +16,7 @@ const dummyblogs = [
 ]
 
 mongoose
-  .connect("mongodb://localhost:27017/blog-app",{
+  .connect("mongodb://127.0.0.1:27017/blog-app",{
   }).then(() => {
     console.log("DB Connected");
   })
