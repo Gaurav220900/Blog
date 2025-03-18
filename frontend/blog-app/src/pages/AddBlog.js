@@ -27,7 +27,7 @@ const AddBlog = () => {
         setUrl('');
         setContent('');
 
-        navigate('/homepage');
+        navigate('/');
 
     }
 
@@ -44,6 +44,10 @@ const AddBlog = () => {
     }
 
 return (
+  <div className={styles.container}>
+    <video autoPlay loop muted className={styles.backgroundVideo}>
+  <source src="https://cdn.pixabay.com/video/2022/06/13/120172-720504774_tiny.mp4" type="video/mp4" />
+</video>
     <form onSubmit={formDataHandler} className={styles.form}>
       <div>
         <label htmlFor="title">Title</label>
@@ -76,6 +80,7 @@ return (
       </div>
       <button>Add</button>
     </form>
+    </div>
 )
 }
 

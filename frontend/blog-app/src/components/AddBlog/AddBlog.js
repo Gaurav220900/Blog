@@ -45,6 +45,7 @@ const AddBlogForm = () => {
         };
 
     return (
+      <div className={styles.container}>
         <form onSubmit={formDataHandler} className={styles.form}>
           <div>
             <label htmlFor="title">Title</label>
@@ -79,6 +80,7 @@ const AddBlogForm = () => {
           </div>
           <button>Add</button>
         </form>
+      </div>
     )
 }
 } 

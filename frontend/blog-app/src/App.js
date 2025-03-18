@@ -12,7 +12,7 @@ function App() {
       <Routes>
         {/* Wrap all routes inside Layout */}
         <Route>
-          <Route path='/homepage' element={<Homepage />} />
+          <Route path='/' element={<Homepage />} />
           <Route path="addBlog" element={<AddBlog />} />
           <Route path="myBlogs" element={<MyBlogs />} />
         </Route>

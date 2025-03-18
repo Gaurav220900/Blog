@@ -1,9 +1,10 @@
-import React from 'react';
+import React  from 'react';
 import styles from './BlogList.module.css';
 import Blog from '../Blog/Blog';
 
 
 const Bloglist = ({ blogs }) => {
+    
     return (
         <ul className={styles.blog}> 
            {blogs && blogs.length > 0 ? (
