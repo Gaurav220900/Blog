@@ -1,5 +1,6 @@
 import styles from './Blog.module.css';
 import React, {useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 const Blog = ({id,title,url,content}) => {
     
   const [expanded, setExpanded] = useState(false);
@@ -13,16 +14,20 @@ const Blog = ({id,title,url,content}) => {
 
         return (
         <div className={styles.card}>
-          <button 
-            style={{ border: 'none', background: 'none', cursor: 'pointer'}}
-            onClick={() => }
-            >
-        <div>
-            <li >
+        <div style={{cursor: 'pointer'}}>
+          <Link
+            style={{textDecoration: 'none'}}
+            to={`/blogs/${id}`}
+            state = {{id,title,url, content}}
+           >
+        
+            
                 <img src={url} alt={title} className={styles.img}/>
                 <h2>{title}</h2>
+                </Link> 
+                </div>
                 <p style={{textAlign: 'justify'}}>{expanded ? content : getPreview(content, 50)}</p>
-
+             
             {content.split(" ").length > 50 && (
                 <button 
                     onClick={() => setExpanded(!expanded)} 
@@ -30,12 +35,12 @@ const Blog = ({id,title,url,content}) => {
                 >
                     {expanded ? "Show Less" : "Read More"}
               </button>
-            
+        
       )}
-            </li>
+            
         </div>
-        </button>
-        </div>
+        
+       
     )
 }
 

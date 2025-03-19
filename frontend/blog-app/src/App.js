@@ -4,6 +4,7 @@ import Layout from './components/Layout/Layout';
 import AddBlog from './pages/AddBlog';
 import Homepage from './pages/Homepage';
 import MyBlogs from './pages/MyBlogs';
+import ShowBlog from './pages/ShowBlog';
 import { Fragment } from 'react';
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path='/' element={<Homepage />} />
           <Route path="addBlog" element={<AddBlog />} />
           <Route path="myBlogs" element={<MyBlogs />} />
+          <Route path="/blogs/:id" element={<ShowBlog />} />
         </Route>
       </Routes>
     </div>

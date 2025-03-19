@@ -1,5 +1,4 @@
 import React, {Fragment, useEffect, useState} from "react";
-import axios from "axios";
 import BlogList from '../components/BlogList/BlogList';
 import api from '../api';
 
