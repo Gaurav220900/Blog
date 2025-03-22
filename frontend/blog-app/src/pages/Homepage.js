@@ -1,6 +1,7 @@
 import React, {Fragment, useEffect, useState} from "react";
 import BlogList from '../components/BlogList/BlogList';
 import Pagination from "../components/Pagination/Pagination";
+import Footer from "../components/Footer/Footer";
 import api from '../api';
 
 const Homepage = () => {
@@ -25,6 +26,7 @@ const Homepage = () => {
         <div>
             <BlogList blogs={blogs} />
             <Pagination />
+            <Footer />
         </div>
     )
 }

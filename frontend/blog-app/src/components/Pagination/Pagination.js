@@ -11,8 +11,8 @@ const Pagination = () => {
 
     return (
             <div style={{textAlign: 'center', padding: '6', margin: '10px auto', position: 'relative', right: '-11px'}}>
-             <button className={styles.button}>Prev</button>
-             <button className={styles.button}>Next</button>
+             <button className={styles.button}>{'<'} Prev</button>
+             <button className={styles.button}>Next {'>'}</button>
             </div>
         
     );
