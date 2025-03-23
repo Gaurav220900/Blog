@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const commentModel = require('../src/model/comment');
 const userModel = require('../src/model/user');
 
-router.post('/comment',async(req,res) => {
+router.post('/comments',async(req,res) => {
     try{
     const newComment = new commentModel(req.body);
     const savedComment = await newComment.save();

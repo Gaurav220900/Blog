@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 4000;
 const blogRoute = require('./Routes/Blog');
+const commentRoute = require('./Routes/comment');
+const userRoute = require('./Routes/user');
+
 const cors = require('cors');
 
 app.get('/', (req, res) => {
@@ -20,6 +23,8 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(blogRoute);
+app.use(commentRoute);
+app.use(userRoute);
 
 
 

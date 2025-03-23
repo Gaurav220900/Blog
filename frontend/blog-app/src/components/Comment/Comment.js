@@ -1,13 +1,21 @@
 import React, {useState} from "react";
-
-
+import api from "../../api";
+import axios from "axios";
 const Comment = () => {
 
     const [comment, setComment] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
+    const commentData = {
+      comment: comment,
+    };
+    //const res = await api.post("/comments", commentData);
+    const res = await axios.post('http://127.0.0.1:4000/comments',commentData);
+    if(res.status === 201){
     console.log("Comment submitted:", comment);
+    console.log(res.data);
+    }
     setComment(""); // Clear the input field after submission
   };
 

@@ -71,7 +71,7 @@ const AddBlogForm = () => {
             <label htmlFor="Content">Content</label>
             <input
               type="textarea"
-              row = '5'
+              row = '4'
               id="Content"
               onChange={contentChangeHandler}
               placeholder="Add Blog Content"

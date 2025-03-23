@@ -54,6 +54,7 @@ return (
         <input
           type="text"
           id="title"
+          color='black'
           onChange={titleChangeHandler}
           placeholder="Add title for blog"
           value={title}
@@ -63,6 +64,7 @@ return (
         <label htmlFor="img-url">Image Url</label>
         <input
           type="text"
+          color='black'
           id="img-url"
           onChange={imgUrlChangeHandler}
           placeholder="Add Image Url"

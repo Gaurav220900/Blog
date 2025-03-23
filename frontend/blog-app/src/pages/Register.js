@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
+import {useNavigate} from 'react-router-dom';
 
 const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    //const history = useHistory();
+    const navigate = useNavigate();
 
-   /* const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/register', { username, password });
+            const response = await api.post('/register', { username,email, password });
             if (response.data.success) {
-                history.push('/login');
+                navigate('/login');
             }
         } catch (error) {
             console.error('There was an error registering!', error);
         }
     };
-    */
+    
 
     return (
         <div
@@ -43,7 +44,7 @@ const Register = () => {
         }}
       >
         <h2 style={{ marginBottom: "10px", textAlign: "center" }}>Register</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: "20px" }}>
             <label style={{color: 'black'}}>Username</label>
             <input
