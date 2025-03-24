@@ -12,15 +12,13 @@ const Login = () => {
       console.log("Email or password missing");
       return;
     }
-    console.log("email:", email);
-    console.log("Password:", password);
-  
+    
     const body = { email, password };
     const response = await api.post("/login", body);
     if (response.data) {  
       console.log("Login successful:", response.data);
     }
-    navigate('/homepage');
+    navigate('/');
 
     
     setEmail("");

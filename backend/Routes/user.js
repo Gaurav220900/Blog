@@ -24,10 +24,7 @@ router.post('/register', async (req, res) => {
         });
         const token = jwt.sign(
             { user_id: user._id, email },
-            process.env.TOKEN_KEY,
-            {
-                expiresIn: "2h",
-            }
+            'secretkey'
         );
         user.token = token;
         res.status(201).json(user);
@@ -36,28 +33,25 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login',auth, async (req, res) => {
     try {
         const { email, password } = req.body;
-        
-        console.log(email, password);
         
         if (!(email && password)) {
             res.status(400).send("All input is required");
         }
         const user = await userModel.findOne({ email });
-        console.log(user);
+        if (!user) {
+            res.status(404).send("User not found");
+        }
         
         if (user && (bcrypt.compare(password, user.password))) {
             const token = jwt.sign(
                 { user_id: user._id, email },
-                process.env.TOKEN_KEY,
-                {
-                    expiresIn: "2h",
-                }
+                'secretkey'
             );
             user.token = token;
-            res.status(200).json(user);
+            return res.status(200).json(user);
         }
         res.status(400).send("Invalid Credentials");
     } catch (err) {
