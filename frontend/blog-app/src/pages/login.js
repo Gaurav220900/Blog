@@ -1,14 +1,29 @@
 import React, { useState } from "react";
-
+import api from "../api";
+import {useNavigate} from 'react-router-dom'
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+    async function handleSubmit(e) {
     e.preventDefault();
-    console.log("Username:", username);
+    if (!email || !password) {
+      console.log("Email or password missing");
+      return;
+    }
+    console.log("email:", email);
     console.log("Password:", password);
-    setUsername("");
+  
+    const body = { email, password };
+    const response = await api.post("/login", body);
+    if (response.data) {  
+      console.log("Login successful:", response.data);
+    }
+    navigate('/homepage');
+
+    
+    setEmail("");
     setPassword("");
   };
 
@@ -37,11 +52,11 @@ const Login = () => {
         <h2 style={{ marginBottom: "20px", textAlign: "center" }}>Login</h2>
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: "20px" }}>
-            <label style={{color: 'black'}}>Username</label>
+            <label style={{color: 'black'}}>Email</label>
             <input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               style={{
                 width: "278px",
                 padding: "10px",

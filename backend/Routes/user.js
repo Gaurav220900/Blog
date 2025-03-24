@@ -36,14 +36,19 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.get('/login', async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
+        
+        console.log(email, password);
+        
         if (!(email && password)) {
             res.status(400).send("All input is required");
         }
         const user = await userModel.findOne({ email });
-        if (user && (await bcrypt.compare(password, user.password))) {
+        console.log(user);
+        
+        if (user && (bcrypt.compare(password, user.password))) {
             const token = jwt.sign(
                 { user_id: user._id, email },
                 process.env.TOKEN_KEY,

@@ -8,11 +8,12 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    async function handleSubmit(e) {
         e.preventDefault();
+        const body = { username, email, password };
         try {
-            const response = await api.post('/register', { username,email, password });
-            if (response.data.success) {
+            const response = await api.post('/register', body);
+            if (response.data) {
                 navigate('/login');
             }
         } catch (error) {
