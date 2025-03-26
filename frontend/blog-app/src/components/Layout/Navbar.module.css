@@ -6,32 +6,29 @@ body {
 
 
 .nav{
-    background-color: rgb(107, 10, 10);
+    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+    position:sticky;
+    display: flex;
+    flex-direction: 'row';   
+    justify-content:space-between;
+    align-items: center; 
+    
+    padding: 10px 0 10px 0;
+   
 }
 
 .nav a{
     color:white;
+    font-size: 16px;
     text-decoration: none;
 }
 
-.nav ul{
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1rem;
+.link {
+    margin: 0 8rem;
 }
 
-.nav ul li{
-    padding: 7px 4px;
-    font-weight: bold;
-}
 
-.nav ul li:nth-of-type(1){
-    padding: 10px 4px;
-    font-weight: bold;
-    margin-left: 8rem;
-}
+
 
 .nav ul li:last-of-type{
 

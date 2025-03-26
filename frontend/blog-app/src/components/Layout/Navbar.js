@@ -4,20 +4,17 @@ import {Link} from 'react-router-dom';
 
 
 const Navbar = () => (
-    <nav className={styles.nav}>
+    <div className={styles.nav}>
          
-      <ul>
-        <li>
-          <Link to="/">Blog</Link>
-        </li>
-        <li>
-          <Link to="/addBlog">Add-Blog</Link>
-        </li>
-        <li>
+        <div className={styles.link}>
+            <Link style={{fontSize: '40px'}} to="/">BlogApp</Link>
+        </div >
+        <div className={styles.link}>
+            <Link  to="/addBlog">Add-Blog</Link>
             <Link to ="/myBlogs">My Blogs</Link>
-        </li>
-       </ul>
-    </nav>
+        </div>
+       
+    </div>
 );
 
 export default Navbar;
