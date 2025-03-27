@@ -21,7 +21,7 @@ router.post('/blog',async(req,res) => {
 
 router.get('/blogs',async(req,res) => {
     try{
-        const blogs = await blogModel.find({});
+        const blogs = await blogModel.find().populate("userId", "username");
         return res.status(200).json({
             message: "blogs received successfully",
             blogs: blogs

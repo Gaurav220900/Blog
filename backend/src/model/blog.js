@@ -15,7 +15,10 @@ const blogSchema = mongoose.Schema({
         type:String,
         trim: false,
         required: true
-    }
+    },
+    userId: {
+         type: mongoose.Schema.Types.ObjectId, ref: "User", required: true ,
+    },
 
 });
 

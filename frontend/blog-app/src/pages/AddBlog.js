@@ -1,7 +1,8 @@
-import {react, useState} from 'react';
+import {react, useState,useContext} from 'react';
 import axios from 'axios';
 import styles from '../components/AddBlog/AddBlog.module.css';
 import {useNavigate} from 'react-router-dom';
+import AuthContext from '../store/AuthContext';
 import api from '../api';
 
 const AddBlog = () => {
@@ -10,14 +11,16 @@ const AddBlog = () => {
     const [url,setUrl] = useState('');
     const [content,setContent] = useState('');
     const navigate = useNavigate();
-
+    const {isLoggedIn} = useContext(AuthContext);
+    
 
     async function formDataHandler(event) {
         event.preventDefault();
         const body = {
             title: title,
             url: url,
-            content: content
+            content: content,
+            userId: isLoggedIn._id
         }
 
         const res = await api.post('/blog',body);

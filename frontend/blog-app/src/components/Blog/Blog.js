@@ -1,7 +1,9 @@
 import styles from './Blog.module.css';
 import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-const Blog = ({id,title,url,content}) => {
+import { FaUserCircle } from "react-icons/fa";
+
+const Blog = ({id,title,url,content,username}) => {
     
   const [expanded, setExpanded] = useState(false);
 
@@ -15,6 +17,7 @@ const Blog = ({id,title,url,content}) => {
         return (
         <div className={styles.card}>
         <div style={{cursor: 'pointer'}}>
+        <FaUserCircle size={30} color="gray" />{username}
           <Link
             style={{textDecoration: 'none'}}
             to={`/blogs/${id}`}

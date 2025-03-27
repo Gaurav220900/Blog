@@ -15,6 +15,7 @@ const Bloglist = ({ blogs }) => {
        title={blog.title}
        url={blog.url}
        content={blog.content}
+       username={blog.userId ? blog.userId.username : "Unknown User"}
      />
    ))
  ) : (
