@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import api from "../api";
 import {useNavigate} from 'react-router-dom'
+import AuthContext from "../store/AuthContext";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+ 
+  const { getLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
     async function handleSubmit(e) {
@@ -18,11 +21,13 @@ const Login = () => {
     if (response.data) {  
       console.log("Login successful:", response.data);
     }
+    getLoggedIn(response.data);
+    setEmail("");
+    setPassword("");
     navigate('/');
 
     
-    setEmail("");
-    setPassword("");
+    
   };
 
   return (

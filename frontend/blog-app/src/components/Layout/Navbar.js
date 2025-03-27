@@ -1,21 +1,27 @@
-import react from 'react';
+import react, {useContext} from 'react';
 import styles from "./Navbar.module.css";
 import {Link} from 'react-router-dom';
+import AuthContext from '../../store/AuthContext'
 
+const Navbar = () => {
 
-const Navbar = () => (
+    const {isLoggedIn} = useContext(AuthContext);
+    return(
     <div className={styles.nav}>
          
         <div className={styles.link}>
             <Link style={{fontSize: '40px'}} to="/">BlogApp</Link>
         </div >
         <div className={styles.link}>
-            <Link  to="/addBlog">Add-Blog</Link>
-            <Link to ="/myBlogs">My Blogs</Link>
+            {isLoggedIn && <Link className={styles.items} to="/addBlog">ADD BLOG</Link>}
+            {!isLoggedIn && <Link  className={styles.items}to ="/register">SIGNUP</Link>}
+            {!isLoggedIn && <Link className={styles.items}to ="/login">LOGIN</Link>}
+            
         </div>
        
     </div>
-);
+    );
+};
 
 export default Navbar;
 
