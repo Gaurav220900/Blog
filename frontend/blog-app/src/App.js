@@ -7,6 +7,7 @@ import MyBlogs from './pages/MyBlogs';
 import ShowBlog from './pages/ShowBlog';
 import Login from './pages/login';
 import Register from './pages/Register';
+import EditBlog from './pages/EditBlog';
 function App() {
   return (
     <div>
@@ -17,9 +18,10 @@ function App() {
           <Route path='/' element={<Homepage />} />
           <Route path="addBlog" element={<AddBlog />} />
           <Route path="myBlogs" element={<MyBlogs />} />
-          <Route path="/blogs/:id" element={<ShowBlog />} />
+          <Route path="/blog/:id" element={<ShowBlog />} />
           <Route path="/login" element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path="/blog/edit/:id" element={<EditBlog />} />
         </Route>
       </Routes>
     </div>

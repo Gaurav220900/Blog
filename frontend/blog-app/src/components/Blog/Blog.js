@@ -17,11 +17,13 @@ const Blog = ({id,title,url,content,username}) => {
         return (
         <div className={styles.card}>
         <div style={{cursor: 'pointer'}}>
-        <FaUserCircle size={30} color="gray" />{username}
+        <FaUserCircle size={30} color="gray" />
+        <span style={{marginLeft: '5px', position:'relative', top: '-12px', fontWeight: 'bold'}}>{username}</span>
+
           <Link
             style={{textDecoration: 'none'}}
-            to={`/blogs/${id}`}
-            state = {{id,title,url, content}}
+            to={`/blog/${id}`}
+            state = {{id,title,url, username, content}}
            >
         
             
