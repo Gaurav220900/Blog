@@ -1,32 +1,33 @@
-import React, {useRef} from "react";
+import React, {useState} from "react";
 import styles from '../components/AddBlog/AddBlog.module.css';
 import api from "../api";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 const EditBlog = () => {
 
     const location = useLocation();
-    const {id,title,url,content} = location.state;
+    console.log(location.state);
+    
+    const {id,title,url,username, content} = location.state;
     const navigate = useNavigate();
-    const titleRef = useRef(title);
-    const urlRef = useRef(url);
-    const contentRef = useRef(content);
+    const [newTitle, setTitle] = useState(title);
+    const [newUrl,setUrl] = useState(url);
+    const [newContent, setContent] = useState(content);
 
     const formDataHandler = async (event) => {
         event.preventDefault();
         const body = {
-            title: titleRef.current.value,
-            url: urlRef.current.value,
-            content: contentRef.current.value,
+            title: newTitle,
+            url: newUrl,
+            content: newContent
         }
 
         const res = await api.put(`/blog/${id}`,body);
         console.log(res);
-        navigate(`blog/${id}`, {
-            state: {id,title,url,content}
-        });
+        navigate(`/blog/${id}`, {state:{id:id,title:newTitle,url:newUrl,username:username,content:newContent}});
 
     }
 
+    
 
     return (
         <div className={styles.container}>
@@ -38,7 +39,8 @@ const EditBlog = () => {
               id="title"
               color='black'
               placeholder="Add title for blog"
-              value={title}
+              value={newTitle}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div>
@@ -48,18 +50,21 @@ const EditBlog = () => {
               color='black'
               id="img-url"
               placeholder="Add Image Url"
-              value={url}
+              value={newUrl}
+              onChange={(e) => setUrl(e.target.value)}
             />
+
           </div>
           <div>
             <label htmlFor="Content">Content</label>
             <textarea
               id="Content"
               placeholder="Add Blog Content"
-              value={content}
+              value={newContent}
+              onChange={(e) => setContent(e.target.value)}
             />
           </div>
-          <button>Add</button>
+          <button>Submit</button>
         </form>
         </div>
     )

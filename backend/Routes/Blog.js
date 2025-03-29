@@ -38,6 +38,8 @@ router.get('/blogs',async(req,res) => {
 router.put('/blog/:id',async(req,res) => {
 
     const {id} = req.params;
+    console.log(id);
+    
     const {title,url,content} = req.body;
     try{
         const updatedBlog = await blogModel.findByIdAndUpdate(id,{
@@ -52,6 +54,22 @@ router.put('/blog/:id',async(req,res) => {
     }catch(err){
         return res.status(500).json({
             message : "error updating blog",
+            error : err.message
+        })
+    }
+});
+
+router.delete('/blog/:id',async(req,res) => {
+    const {id} = req.params;
+    try{
+        const deletedBlog = await blogModel.findByIdAndDelete(id);
+        return res.status(200).json({
+            message : "blog deleted successfully",
+            blog : deletedBlog
+        })
+    }catch(err){
+        return res.status(500).json({
+            message : "error deleting blog",
             error : err.message
         })
     }
