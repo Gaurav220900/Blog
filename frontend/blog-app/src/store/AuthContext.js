@@ -17,8 +17,12 @@ export const AuthProvider = ({ children }) => {
         }
 
         async function logout(){
-            await api.get('/logout');
+            await api.post('/logout',{
+                user: isLoggedIn
+            });
             setIsLoggedIn(false);
+            console.log('Logged out successfully');
+            
         }
 
         useEffect(() => {

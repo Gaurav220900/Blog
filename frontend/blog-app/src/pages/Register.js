@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import api from '../api';
 import {useNavigate} from 'react-router-dom';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -8,15 +10,37 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
 
+    const showSuccessToast = (message) => {
+        toast.success(message, {
+            position: "top-right",
+            autoClose: 3000,    
+            closeOnClick: true,
+        });
+      }
+
+      const showErrorToast = (message) => {
+        toast.error(message, {
+            position: "top-right",
+            autoClose: 3000,
+            closeOnClick: true,
+        });
+      }
     async function handleSubmit(e) {
         e.preventDefault();
         const body = { username, email, password };
         try {
             const response = await api.post('/register', body);
+            
             if (response.data) {
-                navigate('/login');
-            }
+              showSuccessToast('Registration successful!');  // Call before navigate
+              setTimeout(() => navigate('/login'), 2000);    // Delay navigation
+          }
+            
+            
+            
+           
         } catch (error) {
+          showErrorToast(`error: ${error.response.data}`);
             console.error('There was an error registering!', error);
         }
     };
@@ -112,7 +136,9 @@ const Register = () => {
             Submit
           </button>
         </form>
+        <ToastContainer />
       </div>
+      
     </div>
   );
 };

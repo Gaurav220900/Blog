@@ -5,7 +5,6 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 const EditBlog = () => {
 
     const location = useLocation();
-    console.log(location.state);
     
     const {id,title,url,username, content} = location.state;
     const navigate = useNavigate();

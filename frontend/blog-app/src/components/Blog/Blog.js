@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
 
-const Blog = ({id,title,url,content,username}) => {
+const Blog = ({id,title,url,content,username,userId}) => {
     
   const [expanded, setExpanded] = useState(false);
 
@@ -23,7 +23,7 @@ const Blog = ({id,title,url,content,username}) => {
           <Link
             style={{textDecoration: 'none'}}
             to={`/blog/${id}`}
-            state = {{id,title,url, username, content}}
+            state = {{id,title,url, username, content,userId}}
            >
         
             

@@ -10,11 +10,11 @@ router.post('/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
         if (!(email && password && username)) {
-            res.status(400).send("All input is required");
+            res.status(400).message("All input is required");
         }
         const oldUser = await userModel.findOne({ email });
         if (oldUser) {
-            return res.status(409).send("User Already Exist. Please Login");
+            return res.status(409).message("User Already Exist. Please Login");
         }
         encryptedPassword = await bcrypt.hash(password, 10);
         const user = await userModel.create({
@@ -45,15 +45,36 @@ router.post('/login', async (req, res) => {
             res.status(404).send("User not found");
         }
         
-        if (user && (bcrypt.compare(password, user.password))) {
+        if (user && await (bcrypt.compare(password, user.password))) {
             const token = jwt.sign(
                 { user_id: user._id, email },
                 'secretkey'
             );
             user.token = token;
+            await user.save();
             return res.status(200).json(user);
         }
         res.status(400).send("Invalid Credentials");
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+
+router.post('/logout', auth, async (req, res) => {
+    try {
+        const { email } = req.body; // Get the email or user ID from the request body
+        console.log(req.body);
+        
+        // Find the user in the database
+        const user = await userModel.findOne({ email });
+    
+
+        // Set token to null and save the updated user
+        user.token = null;
+        await user.save();
+
+        res.status(200).json({ message: "User logged out successfully" });
     } catch (err) {
         console.log(err);
     }

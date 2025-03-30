@@ -2,6 +2,8 @@ import React, { useState,useContext } from "react";
 import api from "../api";
 import {useNavigate} from 'react-router-dom'
 import AuthContext from "../store/AuthContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -9,12 +11,26 @@ const Login = () => {
   const { getLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const showSuccessToast = (message) => {
+          toast.success(message, {
+              position: "top-right",
+              autoClose: 3000,    
+              closeOnClick: true,
+              
+          });
+        }
+  
+  const showErrorToast = (message) => {
+    toast.error(message, {
+        position: "top-right",
+        autoClose: 3000,
+        closeOnClick: true,
+    });
+  }
     async function handleSubmit(e) {
     e.preventDefault();
-    if (!email || !password) {
-      console.log("Email or password missing");
-      return;
-    }
+    
+    try {
     
     const body = { email, password };
     const response = await api.post("/login", body);
@@ -24,11 +40,15 @@ const Login = () => {
     getLoggedIn(response.data);
     setEmail("");
     setPassword("");
-    navigate('/');
+    showSuccessToast('Login successful!');  // Call before navigate
+    setTimeout(() => navigate('/'), 1000);
 
-    
+  } catch (error) {
+
+    showErrorToast(`error: ${error.response.data}`);
     
   };
+}
 
   return (
     <div
@@ -103,7 +123,21 @@ const Login = () => {
             Login
           </button>
         </form>
+        
+        <div style={{ marginTop: "10px", textAlign: "center" }}>
+          <span style={{ color: "gray" }}>Don't have an account? </span>
+          <a href="/register" style={{ textDecoration: "none", color: "#007bff" }}>
+            Register
+          </a>
+        </div>
+        <div style={{ marginTop: "10px", textAlign: "center" }}>
+          <span style={{ color: "gray" }}>Forgot Password? </span>
+          <a href="/forgotpassword" style={{ textDecoration: "none", color: "#007bff" }}>
+            Reset Password
+          </a>
+          </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
