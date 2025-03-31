@@ -12,7 +12,12 @@ const Comment = ({postId}) => {
   
     const handleSubmit = async(e) => {
     e.preventDefault();
+    if(!isLoggedIn){
+      alert("Please login to comment");
+      return;
+    }
     const commentData = {
+     
       comment: comment,
       post: postId,
       author: isLoggedIn._id, // Assuming you have the user's ID from context or props

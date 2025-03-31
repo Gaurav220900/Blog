@@ -26,7 +26,7 @@ const Homepage = () => {
         <div>
             <BlogList blogs={blogs} />
             <Pagination />
-            <Footer />
+            
         </div>
     )
 }

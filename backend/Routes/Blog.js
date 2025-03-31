@@ -75,4 +75,25 @@ router.delete('/blog/:id',async(req,res) => {
     }
 });
 
+router.get('/blogs/:userId',async(req,res) => {
+    const {userId} = req.params;
+    try{
+        const blogs = await blogModel
+                            .find({userId: userId})
+                            .populate("userId", "username")
+                            .sort({ createdAt: -1 }) // Sort by createdAt in descending order
+                            .exec();
+        return res.status(200).json({
+            message: "blogs received successfully",
+            blogs: blogs
+        })
+    }catch(err){
+        return res.status(500).json({
+        message : "error getting blogs",
+        error : err.message
+        })
+        
+    }
+});
+
 module.exports = router;
