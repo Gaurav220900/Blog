@@ -1,23 +1,51 @@
-import React, {useState} from "react";
+import React, {useEffect, useState,useContext} from "react";
 import api from "../../api";
 import axios from "axios";
-const Comment = () => {
+import AuthContext from "../../store/AuthContext";
+
+const Comment = ({postId}) => {
 
     const [comment, setComment] = useState("");
-
-  const handleSubmit = async(e) => {
+    const [comments, setComments] = useState([]);
+    const {isLoggedIn} = useContext(AuthContext);
+  
+  
+    const handleSubmit = async(e) => {
     e.preventDefault();
     const commentData = {
       comment: comment,
+      post: postId,
+      author: isLoggedIn._id, // Assuming you have the user's ID from context or props
     };
-    //const res = await api.post("/comments", commentData);
-    const res = await axios.post('http://127.0.0.1:4000/comments',commentData);
+
+    const res = await api.post("/comments", commentData);
+
     if(res.status === 201){
     console.log("Comment submitted:", comment);
     console.log(res.data);
     }
+    
     setComment(""); // Clear the input field after submission
   };
+
+  
+
+  useEffect(() => { 
+
+    const getAllPostComments = async () => {
+      const res = await api.get(`/blog/${postId}/comments`);
+      if(res.status === 200){
+          console.log("All comments for the post:", res.data.comments);
+      }
+      setComments(res.data.comments);
+    }
+    if (postId) {  // Ensure postId is defined before making API call
+      getAllPostComments();
+    }
+
+    
+  }
+  , [postId]);
 
 
 

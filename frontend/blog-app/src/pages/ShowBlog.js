@@ -36,7 +36,7 @@ const ShowBlog = () => {
             <img src={url} alt="blog-image"/>
             <h2>{title}</h2>
             <p>{content}</p>
-            <Comment />
+            <Comment postId={id} />
             </div>
     );
 };

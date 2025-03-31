@@ -9,9 +9,6 @@ const auth = require('../middleware/auth');
 router.post('/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
-        if (!(email && password && username)) {
-            res.status(400).message("All input is required");
-        }
         const oldUser = await userModel.findOne({ email });
         if (oldUser) {
             return res.status(409).message("User Already Exist. Please Login");
@@ -27,7 +24,8 @@ router.post('/register', async (req, res) => {
             'secretkey'
         );
         user.token = token;
-        res.status(201).json(user);
+        await user.save();
+        return res.status(201).json(user);
     } catch (err) {
         console.log(err);
     }
@@ -37,15 +35,12 @@ router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         
-        if (!(email && password)) {
-            res.status(400).send("All input is required");
-        }
         const user = await userModel.findOne({ email });
         if (!user) {
             res.status(404).send("User not found");
         }
         
-        if (user && await (bcrypt.compare(password, user.password))) {
+        if (user && await bcrypt.compare(password, user.password)) {
             const token = jwt.sign(
                 { user_id: user._id, email },
                 'secretkey'
@@ -61,15 +56,10 @@ router.post('/login', async (req, res) => {
 });
 
 
-router.post('/logout', auth, async (req, res) => {
+router.post('/logout',  async (req, res) => {
     try {
-        const { email } = req.body; // Get the email or user ID from the request body
-        console.log(req.body);
-        
-        // Find the user in the database
+        const { email } = req.body.user; // Get the email or user ID from the request body
         const user = await userModel.findOne({ email });
-    
-
         // Set token to null and save the updated user
         user.token = null;
         await user.save();
