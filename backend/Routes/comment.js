@@ -38,7 +38,11 @@ router.get('/comments',async(req,res) => {
 router.get('/blog/:postId/comments',async(req,res) => {
     try{
         const postId = req.params.postId;
-        const comments = await commentModel.find({post: postId}).populate('author', 'username');
+        const comments = await commentModel
+                               .find({post: postId})
+                               .populate('author', 'username')
+                               .sort({ createdAt: -1 }) // Sort by createdAt in descending order
+                               .exec();
         return res.status(200).json({
             message: "comments received successfully",
             comments: comments

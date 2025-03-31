@@ -2,7 +2,7 @@ import React, {useEffect, useState,useContext} from "react";
 import api from "../../api";
 import axios from "axios";
 import AuthContext from "../../store/AuthContext";
-
+import { FaUserCircle } from "react-icons/fa";
 const Comment = ({postId}) => {
 
     const [comment, setComment] = useState("");
@@ -24,7 +24,7 @@ const Comment = ({postId}) => {
     console.log("Comment submitted:", comment);
     console.log(res.data);
     }
-    
+
     setComment(""); // Clear the input field after submission
   };
 
@@ -45,7 +45,7 @@ const Comment = ({postId}) => {
 
     
   }
-  , [postId]);
+  , [comments, postId]); // Add postId to the dependency array
 
 
 
@@ -82,6 +82,18 @@ const Comment = ({postId}) => {
           Submit
         </button>
       </form>
+      <div>
+        {comments.length === 0 && <h3>No comments yet.</h3>}
+        {comments.length > 0 && <h3>Comments</h3>}
+        {comments.map((comment) => (
+          <div key={comment._id} style={{ margin: "10px 0", padding: "10px", borderBottom: "1px solid #ccc" }}>
+            <FaUserCircle size={30} color="gray" />
+            <span style={{ fontWeight: "bold", position: 'relative', top: '-10px', left: '8px' }}>{comment.author.username}<span style={{fontWeight: 'normal', float: 'right'}}>{   new Date(comment.createdAt).toLocaleString()}</span></span>
+            
+            <p>{comment.comment}</p>
+          </div>
+        ))}
+      </div>
     </div>
     )
 };
